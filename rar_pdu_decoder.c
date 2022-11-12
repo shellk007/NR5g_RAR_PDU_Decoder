@@ -114,10 +114,8 @@ int main(void)
         ul_grant = 0;
         tc_rnti = 0;
 
-        if(e_bit){
-            offset++;
+        if(e_bit)
             continue;
-        }
         else
             break;
     }
