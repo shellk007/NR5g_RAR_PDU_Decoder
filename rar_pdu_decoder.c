@@ -52,15 +52,15 @@ int main(void)
         if(t_bit){
             /* This is RAPID subheader */
             rapid = rar_buf[offset]&0x3F;
+            offset++;
         }
         else{
             /* This is BI subheader */
             bi = rar_buf[offset]&0x0F;
             printf("\n Backoff indicator is included; BI value is: %d", bi);
-            if(e_bit){
-                offset++;
+            offset++;
+            if(e_bit) 
                 continue;
-            }
             else
                 break;
         }
@@ -69,17 +69,13 @@ int main(void)
          * In that case it would be a RAPID only subheader */
         if(rapid_only(rapid)){
             printf("\nThis subheader is a RAPID ONLY subheader, No corresponding MAC RAR exists for RAPID: %d", rapid);
-            if(e_bit){
-                offset++;
+            if(e_bit)
                 continue;
-            }
             else
                 break;
         }
 
         /* We reach this point only in case of rapid with MAC_RAR */
-        offset++;
-
         for(index = 0; index <sizeof(timing_advance); index++ ){
         
             timing_advance = timing_advance <<8;
